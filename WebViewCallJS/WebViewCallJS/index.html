@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample HTML Page</title>
+    <style>
+            button {
+                width: 400px;
+                height: 100px;
+                font-size: 30px;
+                margin-left: 20px;
+                margin-top: 20px;
+            }
+        h1 {
+            margin-left: 25px;
+        }
+        p {
+            margin-left: 25px;
+            font-size: 45px;
+            margin-top: 50px;
+        }
+        </style>
+    <script>
+        function sendDataToiOS() {
+            const data = { message: 'Hello from JavaScript' };
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.messageHandlerForiOS) {
+                document.getElementById('iOSDataLabel').innerText = '';
+                window.webkit.messageHandlers.messageHandlerForiOS.postMessage(data);
+            }
+            else {
+                console.log('iOS message handlers not available.');
+            }
+        }
+        
+        function sendDataToHTML(data) {
+            const decodedData = JSON.parse(atob(data));
+            document.getElementById('iOSDataLabel').innerText = decodedData.message;
+        }
+        
+    </script>
+</head>
+<body>
+    <h1>My HTML Page</h1>
+    <button onclick="sendDataToiOS()">Send Message to iOS</button>
+    <p id="iOSDataLabel"> </p>
+</body>
+</html>
